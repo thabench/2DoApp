@@ -11,6 +11,7 @@ from random import randint, seed
 import smtplib
 from email.message import EmailMessage
 from texts import password, welcome
+import os
 
 # -----COLORS----------------------------------------------------
 main_color = '#5c454e'
@@ -18,11 +19,13 @@ light_main_color = '#8f6d7a'
 secondary_color = '#d4e1e8'
 secondary_dark_color = '#6d828f'
 
+dirname = os.path.dirname(__file__)
+os.path.join(dirname, "image", "2DO.ico")
 
 # -----MAIN WINDOW AND STYLE----------------------------------------
 window = Tk()
 window.title('2DO')
-icon = 'C:\\Users\\Administrator\\Desktop\\ToDo projektas\\2DO.ico'
+icon = '2DO.ico'
 window.iconbitmap(icon)
 window.geometry('950x710')
 window.resizable(False, False)
