@@ -4,7 +4,6 @@ import pickle
 from datetime import datetime
 from tkcalendar import *
 import babel.numbers
-# import tkcalendar.calendar_
 from tkinter.font import Font
 import itertools
 from random import randint, seed
