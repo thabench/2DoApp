@@ -4,7 +4,7 @@ import pickle
 from datetime import datetime
 from tkcalendar import *
 import babel.numbers
-import tkcalendar.calendar_
+# import tkcalendar.calendar_
 from tkinter.font import Font
 import itertools
 from random import randint, seed
@@ -20,12 +20,12 @@ secondary_color = '#d4e1e8'
 secondary_dark_color = '#6d828f'
 
 dirname = os.path.dirname(__file__)
-os.path.join(dirname, "image", "2DO.ico")
+os.path.join(dirname, "image", "2DOicon.ico")
 
 # -----MAIN WINDOW AND STYLE----------------------------------------
 window = Tk()
 window.title('2DO')
-icon = '2DO.ico'
+icon = '2DOicon.ico'
 window.iconbitmap(icon)
 window.geometry('950x710')
 window.resizable(False, False)
@@ -287,10 +287,8 @@ def pop_up_info():
     user_email_e.pack()
 
     submit_b = Button(u_info,
-    bg=secondary_color,
     width=25,
-    fg=main_color,
-    text='SUBMIT', command=lambda: submit_info(True))
+    command=lambda: submit_info(True))
     submit_b.pack(pady=30)
     
     user_information = get_user_info()
@@ -299,6 +297,7 @@ def pop_up_info():
         user_email_e.insert(0,'')
         user_name_e.insert(0, user_information[0])
         user_email_e.insert(0, user_information[1])
+        submit_b.config(text='SUBMIT', bg=main_color, fg=secondary_color)
     else:
         user_information = []
     
@@ -307,6 +306,7 @@ def pop_up_info():
             user_information = []
             user_information.append(user_name_e.get())
             user_information.append(user_email_e.get())
+            submit_b.config(text='SUBMITED', bg=secondary_color, fg=main_color)
             save_user_info(user_information)
 
 
@@ -446,6 +446,7 @@ add_task_l.pack(side=LEFT, pady=10, expand=True)
 add_task_e = Entry(top, width=50)
 add_task_e.insert(END, 'New Task')
 add_task_e.config(fg=main_color)
+add_task_e.bind("<Return>", lambda event: add_task())
 add_task_e.pack(side=LEFT, pady=10, padx=5, expand=True)
 
 add_time_l = Label(top, bg=main_color, fg='white', 
@@ -456,6 +457,7 @@ add_time_l.pack(side=LEFT, pady=10, expand=True)
 add_time_e = Entry(top)
 add_time_e.insert(END, '08:00:00')
 add_time_e.config(fg=main_color)
+add_time_e.bind("<Return>", lambda event: add_task())
 add_time_e.pack(side=LEFT, pady=10, padx=5, expand=True)
 
 task_to_delete_l = Label(bottom, bg=main_color, fg='white', text='WHICH TASK YOU WANT TO DELETE?')
@@ -466,6 +468,7 @@ task_to_delete_e.grid(row=0, column=1, sticky='nsew')
 task_to_delete_e.insert(0, 'ENTER TASK NUMBER')
 task_to_delete_e.bind('<FocusIn>', focusin_entry_to_delete)
 task_to_delete_e.bind('<FocusOut>', focusout_entry_to_delete)
+task_to_delete_e.bind("<Return>", lambda event: delete_task())
 task_to_delete_e.config(fg = 'grey')
 
 task_to_complete_l = Label(bottom, bg=main_color, fg='white', text='WHICH TASK YOU WANT TO COMPLETE?')
@@ -476,16 +479,17 @@ task_to_complete_e.grid(row=1, column=1, sticky='nsew')
 task_to_complete_e.insert(0, 'ENTER TASK NUMBER')
 task_to_complete_e.bind('<FocusIn>', focusin_entry_to_complete)
 task_to_complete_e.bind('<FocusOut>', focusout_entry_to_complete)
+task_to_complete_e.bind("<Return>", lambda event: complete_task())
 task_to_complete_e.config(fg = 'grey')
 
 
 #-----BUTTONS-----------------------------------------------------
-confirm_btn = Button(bottom, text='ADD TASK', 
+add_task_btn = Button(bottom, text='ADD TASK', 
 bg=secondary_color, 
 fg=main_color, 
 width=130, height=2, 
 command=add_task)
-confirm_btn.grid(row=2, columnspan=2, sticky='nsew')
+add_task_btn.grid(row=2, columnspan=2, sticky='nsew')
 
 delete_btn = Button(bottom, text='DELETE TASK', 
 bg=secondary_color, 
